@@ -26,4 +26,24 @@ patientRouter.get("/all", async (req, res) => {
    }
 });
 
+patientRouter.post("/add", async (req, res) => {
+   const { patientData, triageData, adminUsername } = req.body;
+   try {
+      const patients = await patientServices.addPatient(patientData, triageData, adminUsername);
+      res.status(200).json(patients);
+   } catch (error) {
+      res.status(500).json({ message: error.message });
+   }
+});
+
+patientRouter.patch("/admit", async (req, res) => {
+   const { patientId } = req.body;
+   try {
+      await patientServices.admitPatient(patientId);
+      res.status(200).json({ message: "Patient admitted" });
+   } catch (error) {
+      res.status(500).json({ message: error.message });
+   }
+});
+
 export default patientRouter;
