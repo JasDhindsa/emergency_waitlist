@@ -73,6 +73,7 @@ const getAllPatientData = () => {
    });
 };
 
+
 const addPatient = (patientData, triageData, adminUsername) => {
    return new Promise((resolve, reject) => {
       // Step 1: Insert into patients table
