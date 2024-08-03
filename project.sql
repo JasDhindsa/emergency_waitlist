@@ -15,6 +15,7 @@ CREATE TABLE patients (
     patient_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     code CHAR(3) NOT NULL,
+    admitted BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE(name, code)
 );
@@ -31,7 +32,7 @@ CREATE TABLE triage_records (
     record_id INT AUTO_INCREMENT PRIMARY KEY,
     patient_id INT NOT NULL,
     admin_id INT NOT NULL,
-    severity INT NOT NULL,
+    severity TINYINT NOT NULL CHECK (severity BETWEEN 1 AND 5),
     wait_time INT NOT NULL, -- in minutes
     triage_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
@@ -49,19 +50,28 @@ INSERT INTO patients (name, code) VALUES ('Henry King', 'HKG');
 INSERT INTO patients (name, code) VALUES ('Ivy Lee', 'ILE');
 INSERT INTO patients (name, code) VALUES ('Jack Miller', 'JML');
 
-INSERT INTO administrators (username, password) VALUES ('Admin One', 'password1');
-INSERT INTO administrators (username, password) VALUES ('Admin Two', 'password2');
-INSERT INTO administrators (username, password) VALUES ('Admin Three', 'password3');
+INSERT INTO administrators (username, password) VALUES ('admin-1', 'password1');
+INSERT INTO administrators (username, password) VALUES ('admin-2', 'password2');
+INSERT INTO administrators (username, password) VALUES ('admin-3', 'password3');
 
-INSERT INTO triage_records (patient_id, admin_id, severity, wait_time) VALUES (1, 1, 4, 45);
-INSERT INTO triage_records (patient_id, admin_id, severity, wait_time) VALUES (2, 2, 2, 30);
-INSERT INTO triage_records (patient_id, admin_id, severity, wait_time) VALUES (3, 3, 3, 25);
-INSERT INTO triage_records (patient_id, admin_id, severity, wait_time) VALUES (4, 1, 5, 60);
-INSERT INTO triage_records (patient_id, admin_id, severity, wait_time) VALUES (5, 2, 1, 15);
-INSERT INTO triage_records (patient_id, admin_id, severity, wait_time) VALUES (6, 3, 2, 35);
-INSERT INTO triage_records (patient_id, admin_id, severity, wait_time) VALUES (7, 1, 4, 50);
-INSERT INTO triage_records (patient_id, admin_id, severity, wait_time) VALUES (8, 2, 3, 40);
-INSERT INTO triage_records (patient_id, admin_id, severity, wait_time) VALUES (9, 3, 1, 20);
-INSERT INTO triage_records (patient_id, admin_id, severity, wait_time) VALUES (10, 1, 5, 55);
+-- Severity 1 (most critical), sorted by wait time
+INSERT INTO triage_records (patient_id, admin_id, severity, wait_time) VALUES (5, 2, 1, 15); -- Severity 1, first patient
+INSERT INTO triage_records (patient_id, admin_id, severity, wait_time) VALUES (9, 3, 1, 20); -- Severity 1, second patient (15 + 5)
+
+-- Severity 2, sorted by wait time
+INSERT INTO triage_records (patient_id, admin_id, severity, wait_time) VALUES (2, 2, 2, 25); -- Severity 2, first patient
+INSERT INTO triage_records (patient_id, admin_id, severity, wait_time) VALUES (6, 3, 2, 30); -- Severity 2, second patient (25 + 5)
+
+-- Severity 3, sorted by wait time
+INSERT INTO triage_records (patient_id, admin_id, severity, wait_time) VALUES (3, 3, 3, 35); -- Severity 3, first patient
+INSERT INTO triage_records (patient_id, admin_id, severity, wait_time) VALUES (8, 2, 3, 40); -- Severity 3, second patient (35 + 5)
+
+-- Severity 4, sorted by wait time
+INSERT INTO triage_records (patient_id, admin_id, severity, wait_time) VALUES (1, 1, 4, 45); -- Severity 4, first patient
+INSERT INTO triage_records (patient_id, admin_id, severity, wait_time) VALUES (7, 1, 4, 50); -- Severity 4, second patient (45 + 5)
+
+-- Severity 5 (least critical), sorted by wait time
+INSERT INTO triage_records (patient_id, admin_id, severity, wait_time) VALUES (4, 1, 5, 55); -- Severity 5, first patient
+INSERT INTO triage_records (patient_id, admin_id, severity, wait_time) VALUES (10, 1, 5, 60); -- Severity 5, second patient (55 + 5)
 
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
