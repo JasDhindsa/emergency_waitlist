@@ -1,0 +1,25 @@
+.patient-container {
+   background-color: var(--dark-blue);
+   padding: 20px;
+   border-radius: 15px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   width: 500px;
+}
+
+.patient-container h2 {
+   text-align: center;
+}
+
+.patient-container p {
+   text-align: center;
+   color: var(--light-blue)
+}
+
+.patient-container button {
+   cursor: pointer;
+   transition: opacity 0.3s;
+}
+
+.patient-container button:hover {
+   opacity: 0.7;
+}
