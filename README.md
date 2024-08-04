@@ -70,7 +70,7 @@ go to this URL if it doesn’t. It is highly recommended that you use Google Chr
 It is important to note that you should have nothing running on any of the previously mentioned
 ports prior to following this guide. This includes ports 3306, 4000, and 3000.
 
-## User's Application
+## User's Perspective
 
 ### Patient
 
