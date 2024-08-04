@@ -8,7 +8,7 @@ _Note that we reccomend using a windows machine to run the application_
 
 #### Extracting the files
 
-Prior to the setup and configuration, make sure to extract all the files from the zip file *csi3140_assignment_4_group1.zip*. Extract it to a locatino that you can easily find. Upon successful extraction, you should be able to see the file struture.
+Prior to the setup and configuration, make sure to extract all the files from the zip file *csi3140_assignment_4_group1.zip*. Extract it to a location that you can easily find. Upon successful extraction, you should be able to see the file struture.
 
 ![](./frontend/public/project_structure.png)
 
